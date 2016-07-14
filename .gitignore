@@ -1,0 +1,9 @@
+/.*
+!/.gitignore
+!/.eslintrc.json
+!/.jshintrc
+/bower_components/
+/node_modules/
+/output/
+/src/.webpack.js
+/example/example.js
