@@ -1,13 +1,12 @@
 module QRCode.Halogen.Component where
 
-import Prelude
+import Prelude (type (~>), pure, void, unit, bind, const, (<$>), (<<<), ($), ($>))
 
-import QRCode
+import QRCode (Config, QRCode, QRCODE, makeCode, mkQRCodeNode, defaultConfig)
 
 import Control.Monad.Aff (Aff)
-import Data.Maybe
+import Data.Maybe (Maybe(..), maybe)
 
-import DOM (DOM)
 import DOM.HTML.Types (HTMLElement)
 
 import Halogen as H
