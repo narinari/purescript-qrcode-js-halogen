@@ -41,7 +41,7 @@ type StateP g = H.ParentState State QRCode.State Query QRCode.Query g QRCodeSlot
 type QueryP = Coproduct Query (H.ChildF QRCodeSlot QRCode.Query)
 type MainHTML g = H.ParentHTML QRCode.State Query QRCode.Query g QRCodeSlot
 type MainAff = Aff MainEffects
-type MainDSL = H.ParentDSL State QRCode.State Query QRCode.Query MainAff QRCodeSlot
+type MainDSL g = H.ParentDSL State QRCode.State Query QRCode.Query g QRCodeSlot
 
 
 ui :: H.Component (StateP MainAff) QueryP MainAff
@@ -81,7 +81,7 @@ ui = H.parentComponent { render, eval, peek: Nothing }
         ]
       ]
   
-  eval :: Query ~> MainDSL
+  eval :: Query ~> MainDSL MainAff
   eval (UpdateText slotID newText next) = do
     H.modify (\s -> if slotID == "A" then s { textA = newText } else s { textB = newText })
     H.query (QRCodeSlot slotID) $ H.action $ QRCode.SetText newText
