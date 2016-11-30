@@ -4,7 +4,8 @@ import Prelude (type (~>), pure, void, unit, bind, const, (<$>), (<<<), ($), ($>
 
 import QRCode (Config, QRCode, QRCODE, makeCode, mkQRCodeNode, defaultConfig)
 
-import Control.Monad.Aff (Aff)
+import Control.Monad.Aff.Class (class MonadAff)
+import Control.Monad.Aff.Free (class Affable)
 import Data.Maybe (Maybe(..), maybe)
 
 import DOM.HTML.Types (HTMLElement)
@@ -34,8 +35,11 @@ initialState =
   }
 
 component
-  :: forall eff
-  .  H.Component State Query (Aff (QREffects eff))
+  :: forall m eff
+  . ( MonadAff (QREffects eff) m
+    , Affable (QREffects eff) m
+    )
+  => H.Component State Query m
 component = H.lifecycleComponent
   { render
   , eval
@@ -46,7 +50,7 @@ component = H.lifecycleComponent
   render :: State -> H.ComponentHTML Query
   render = const $ HH.div [ HP.ref (\elm -> H.action (SetElement elm)) ] []
 
-  eval :: Query ~> H.ComponentDSL State Query (Aff (QREffects eff))
+  eval :: Query ~> H.ComponentDSL State Query m
   eval (SetElement elm next) = H.modify (_ { element = elm}) $> next
   eval (Init next) = do
     elm <- H.gets _.element
