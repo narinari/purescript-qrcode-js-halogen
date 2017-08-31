@@ -18,11 +18,11 @@
     "package.json"
   ],
   "dependencies": {
-    "purescript-qrcode-js": "^2.0.0",
-    "purescript-halogen": "^1.0.0"
+    "purescript-qrcode-js": "../purescript-qrcode-js#master",
+    "purescript-halogen": "^2.1.0"
   },
   "devDependencies": {
-    "purescript-console": "^2.0.0",
-    "purescript-psci-support": "^2.0.0"
+    "purescript-console": "^3.0.0",
+    "purescript-psci-support": "^3.0.0"
   }
 }

@@ -2,14 +2,13 @@ module QRCode.Halogen.Component where
 
 import Halogen as H
 import Halogen.HTML as HH
-import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Control.Monad.Aff.Class (class MonadAff)
 import DOM.HTML.Types (HTMLElement)
 import Data.Maybe (Maybe(..), maybe, fromMaybe)
 import Data.Traversable (traverse_)
 import Data.Void (Void)
-import Prelude (type (~>), const, pure, bind, unit, (<*>), (<$>), ($))
+import Prelude (type (~>), const, pure, bind, unit, (<*>), (<$>), ($), discard)
 import QRCode (Config, QRCode, QRCODE, makeCode, mkQRCodeNode, defaultConfig)
 
 type QREffects eff = (qrcode :: QRCODE | eff)
